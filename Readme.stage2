@@ -1,0 +1,34 @@
+In the stage 2, the steps followed are given below. Also the code referred from other places is also mentioned.
+
+To run the program run command 'make all' and to clean 'make clean'.
+
+1. The select() function is used to get packets from tunnel and proxy socket in tunnel(). 
+The code for select() is copied from Beej Tutorial.
+The timer code is also copied from Beej Tutorial
+
+2. Once the packet is received from tunnel, the fprintf() is used to feed the packet info in the log file.
+
+3. The packet is sent to router and at router the source and destination IP addresses are swapped. The router packet data enetered into the router log file.
+
+4. The proxy socket recieves data from select(). The log file of proxy is updated and the packet is written back into the tunnel using write().
+
+5. The output at the terminal shows the pings have been successful.
+
+********* Important Point : MUST Read*****************
+
+I have used timer function and the time is 10 seconds. This means that if the ping does not start in 10 seconds then the program will close.
+Also, please wait for 10 sec before checking the final output log files as the fclose() is done only when no activity is there on sockets for 10 seconds.
+At the terminal the exit program comment is also displayed to tell the user that its safe to open the log files.
+If the log files are opened before 10 seconds then no output will be seen and the program needs to be run again.
+
+a) Reused code: The socket creation, packet sending and receiving code in main(), server_connection() and router_connection() function is copied from beej tutorial.
+The select() is copied from Beej and http://backreference.org/2010/03/26/tuntap-interface-tutorial/ .
+The timer code is also copied from Beej tutorial.
+
+b) Completed
+
+c)Portable: It may not work if the router and proxy are on different computers. 
+
+It won't be a problem if two different processors are used for stage 2 as send and rec function are not time dependent.
+
+

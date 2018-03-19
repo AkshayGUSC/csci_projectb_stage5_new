@@ -1,0 +1,29 @@
+In the stage 1, the steps followed are given below. Also the code referred from other places is also mentioned.
+
+To run the program run command 'make all' and to clean 'make clean'
+
+1. The input file is read, when '#' is found the line is skipped and the next line is read. The whole line is read in buf[].
+If buf[0] == 's' then after 5 characters (stage) stage number is detected.
+Otherwise buf[0] == 'n' and after exactly 11 characters (num_routers) the number of routers is picked.
+
+Note: In the file I assume num_routers is not preceded by any other character though it can be followed by other characters before number is written.
+Also, the maximum number of routers can be 50 characters long.
+
+2. The proxy socket is created with dynamic port by setting the port parameter as '0' and then port number number is obtained from getsockname().
+Note: All code for the syntax of creating sockets, sending or receiving packets is copied as it is from Beej tutorial.
+
+3. Once the router process is forked, a packet is sent from the router to proxy with all details.
+
+4. fprintf() is used to print the files.
+
+a) Reused code: The socket creation, packet sending and receiving code in main(), server_connection() and router_connection() function is copied from beej tutorial.
+
+b) Complete : Yes the correct output is generated. Assumptions are made that the input file is same as mentioned in the doc.
+
+c) Portable: It may not work if the router and proxy are on different computers. 
+
+This is because there can be time synchronization problem. The router in one computer may send the packet real soon even before the proxy has started receiving owing to its faster performance.
+
+
+
+
